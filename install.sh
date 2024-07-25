@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-echo Vim global installing..."
+echo "Vim global installing..."
 
 sudo apt install vim vim-gtk ack
 git submodule update --init --recursive

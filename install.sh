@@ -1,30 +1,26 @@
 #!/bin/bash 
 
-
-echo "vin global installing..."
+echo Vim global installing..."
 
 sudo apt install vim vim-gtk ack
+git submodule update --init --recursive
 
-MyVim = 'pwd -P'
+MyVim=`pwd -P`
 
 cd $HOME
 
-function digitaldatetime() {
-    echo `date +"%Y%m%d%H%M%S"`
-}
-
 if [ -f ~/.vimrc ] || [ -h ~/.vimrc ]; then
-    echo "\033[0;33mFound ~/.vimrc.\033[0m \033[0;32mBacking up to ~/.vimrc.`digitaldatetime`\033[0m";
-    mv ~/.vimrc ~/.vimrc.`digitaldatetime`;
+    echo "Found ~/.vimrc. Backing up to ~/.vimrc_copy";
+    mv ~/.vimrc ~/.vimrc_copy;
 fi
 
 if [ -d ~/.vim ]; then
-    echo "\033[0;33mFound ~/.vim.\033[0m \033[0;32mBacking up to ~/.vim.`digitaldatetime`\033[0m";
-    mv ~/.vim ~/.vim.`digitaldatetime`;
+    echo "Found ~/.vim. Backing up to ~/.vim_copy";
+    mv ~/.vim ~/.vim_copy;
 fi
 
-echo "\033[0;36mCopying .vimrc and .vim\033[0m"
-echo "\033[0;32mln -s ${MyVim}/.vimrc .vimrc\033[0m"
+echo "Copying .vimrc and .vim"
+echo "ln -s ${MyVim}/.vimrc .vimrc"
 ln -s ${MyVim}/.vimrc .vimrc
-echo "\033[0;32mln -s ${MyVim}/.vim .vim\033[0m"
+echo "ln -s ${MyVim}/.vim .vim"
 ln -s ${MyVim}/.vim .vim

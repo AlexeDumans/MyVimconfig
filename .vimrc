@@ -11,6 +11,17 @@ augroup END
 nnoremap <Leader>n :NERDTreeToggle<CR>
 nnoremap <Leader>f :NERDTreeFind<CR>
 
+" gundo
+nnoremap <Leader>u :GundoToggle<CR>
+if has('python3')
+    let g:gundo_prefer_python3 = 1
+endif
+
+" gundo
+nnoremap <Leader>u :GundoToggle<CR>
+if has('python3')
+    let g:gundo_prefer_python3 = 1
+endif
 " ctrlp
 nnoremap ; :CtrlPBuffer<CR>
 let g:ctrlp_switch_buffer = 0
@@ -35,41 +46,39 @@ map g/ <Plug>(incsearch-stay)
 " zn .vimrc
 " set nowrap   "不换行
 " colorscheme darkblue  "颜色模式
-
+set helplang=cn
 set shiftwidth=4  "默认缩进4个空格
 set softtabstop=4  "使用tab时 tab空格数
 set tabstop=4  "tab代表4个空格
 set expandtab "使用空格替换tab
 set autoindent " 自动缩进
 set smarttab
-
+setlocal noswapfile " 不要生成swap文件
+set bufhidden=hide "  当buffer被丢弃时隐藏它    
+set cursorline " 突出显示当前行
+set ruler " 打开状态栏标尺
+set nobackup " 覆盖文件时不备份
+set autochdir " 自动切换到当前目录为当前文件所在位置
+set backupcopy=yes " 设置备份时的d行为为覆盖
+set noerrorbells  novisualbell t_vb = " isable audible bell because it's annoyin
+set smartindent " 开启新行时使用智能自动缩进
+set cmdheight=1 " z设定命令行的行数为1
 filetype on "文件类型
+    
 filetype plugin indent on " enable file type detection
-set autoindent
 set encoding=utf-8 "编码为utf8
 syntax on  "语法高亮
 
+filetype on "文件类型
+filetype plugin indent on " enable file type detection
+set encoding=utf-8 "编码为utf8
+syntax on  "语法高亮
 set number   "显示行号
 set mouse+=a " 允许使用鼠标 , Enable mouse support.
 set laststatus=2  "总是显示状态行
-set showmatch " show matching braces when text indicator is over them
+set matchtime=2 " 短暂跳转到匹配括号的时间
+set magic " 设置魔术
 
-set scrolloff=5 " show lines above and below cursor (when possible)
-
-set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
-set lazyredraw " skip redrawing screen in some cases
-set autochdir " automatically set current directory to directory of last opened file
-set hidden " allow auto-hiding of edited buffers
-set history=8192 " more history
-
-" tab completion for files/bufferss
-set wildmode=longest,list
-set wildmenu
-set mouse+=a " enable mouse mode (scrolling, selection, etc)
-if &term =~ '^screen'
-    " tmux knows the extended mouse mode
-    set ttymouse=xterm2
-endif
 
 " open new split panes to right and bottom, which feels more natural
 set splitbelow
@@ -78,7 +87,7 @@ set splitright
 " backspace键
 " indent 删除自动缩进的值
 " eol 删除上一行行末尾的回车，两行合并
-    " start 除了刚输入的，还删除原来的字符
+" start 除了刚输入的，还删除原来的字符
 set backspace=indent,eol,start
 set hidden  " 允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存
 
@@ -100,7 +109,30 @@ set noshowmode " hide mode
 set nocompatible " vim - vi , default Vi-compatibility mode  turns out not
 set noerrorbells visualbell t_vb= " Disable audible bell because it's annoyin
 set nofoldenable " disable folding by default
+" foldenable 折叠相关z设置
+" set foldenable " 开始折叠
+" set foldmethod-syntax " 设置语法折叠
+" set foldcolumn=0 " 设置折叠区域的宽度
+" setlocal foldlevel=1 " 设置s折叠层数为 1
+"    nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR> " 用空格键来开关折叠 
 set nojoinspaces " suppress inserting two spaces between sentences
+
+set showmatch " show matching braces when text indicator is over them
+
+set scrolloff=5 " show lines above and below cursor (when possible)
+
+set timeout timeoutlen=1000 ttimeoutlen=100 " fix slow O inserts
+set lazyredraw " skip redrawing screen in some cases
+set history=8192 " more history
+
+" tab completion for files/bufferss
+set wildmode=longest,list
+set wildmenu
+set mouse+=a " enable mouse mode (scrolling, selection, etc)
+if &term =~ '^screen'
+    " tmux knows the extended mouse mode
+    set ttymouse=xterm2
+endif
 
 "" highlight current line, but only in active window
 augroup CursorLineOnlyInActiveWindow
@@ -131,6 +163,24 @@ else
     " patches
     highlight CursorLineNr cterm=NONE
 endif
+
+" markdown
+let g:markdown_fenced_languages = [
+    \ 'asm',
+    \ 'bash=sh',
+    \ 'c',
+    \ 'erb=eruby',
+    \ 'javascript',
+    \ 'json',
+    \ 'perl',
+    \ 'python',
+    \ 'ruby',
+    \ 'yaml',
+    \ 'go',
+    \ 'rust',
+\]
+let g:markdown_syntax_conceal = 0
+let g:markdown_folding = 1
 
 " }}}
 

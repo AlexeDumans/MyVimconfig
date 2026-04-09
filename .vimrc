@@ -1,3 +1,9 @@
+
+
+" 开启系统剪贴板关联
+set clipboard=unnamedplus
+
+
 " setup folds {{{
 augroup filetype_vim
   autocmd!
@@ -11,11 +17,6 @@ augroup END
 nnoremap <Leader>n :NERDTreeToggle<CR>
 nnoremap <Leader>f :NERDTreeFind<CR>
 
-" gundo
-nnoremap <Leader>u :GundoToggle<CR>
-if has('python3')
-    let g:gundo_prefer_python3 = 1
-endif
 
 " gundo
 nnoremap <Leader>u :GundoToggle<CR>
@@ -60,27 +61,23 @@ set ruler " 打开状态栏标尺
 set nobackup " 覆盖文件时不备份
 set autochdir " 自动切换到当前目录为当前文件所在位置
 set backupcopy=yes " 设置备份时的d行为为覆盖
-set noerrorbells  novisualbell t_vb = " isable audible bell because it's annoyin
+set noerrorbells  novisualbell t_vb = " 禁用提示音disable audible bell because it's annoyin
 set smartindent " 开启新行时使用智能自动缩进
 set cmdheight=1 " z设定命令行的行数为1
-filetype on "文件类型
-    
-filetype plugin indent on " enable file type detection
-set encoding=utf-8 "编码为utf8
-syntax on  "语法高亮
-
 filetype on "文件类型
 filetype plugin indent on " enable file type detection
 set encoding=utf-8 "编码为utf8
 syntax on  "语法高亮
 set number   "显示行号
-set mouse+=a " 允许使用鼠标 , Enable mouse support.
+
+" 使用鼠标会影响windows的复制功能,在使用鼠标时按住shift键即可,但是只能选择一个屏幕的内容 
+" set mouse+=a " 允许使用鼠标 , Enable mouse support.
 set laststatus=2  "总是显示状态行
 set matchtime=2 " 短暂跳转到匹配括号的时间
 set magic " 设置魔术
 
 
-" open new split panes to right and bottom, which feels more natural
+" 打开新窗口时默认右边或者下边open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
 
@@ -128,7 +125,7 @@ set history=8192 " more history
 " tab completion for files/bufferss
 set wildmode=longest,list
 set wildmenu
-set mouse+=a " enable mouse mode (scrolling, selection, etc)
+" set mouse+=a " enable mouse mode (scrolling, selection, etc)
 if &term =~ '^screen'
     " tmux knows the extended mouse mode
     set ttymouse=xterm2
@@ -185,14 +182,15 @@ let g:markdown_folding = 1
 " }}}
 
 
+
 " mappings {{{
-" Try to prevent bad habits like using the arrow keys for movement. 
-" Do this in normal mode...
+" 尝试纠正一些错误习惯  Try to prevent bad habits like using the arrow keys for movement. 
+" 在正常模式Do this in normal mode...
 nnoremap <Left>  :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up>    :echoe "Use k"<CR>
 nnoremap <Down>  :echoe "Use j"<CR>
-" ...and in insert mode
+" ...和在编辑模式...and in insert mode
 inoremap <Left>  <ESC>:echoe "Use h"<CR>
 inoremap <Right> <ESC>:echoe "Use l"<CR>
 inoremap <Up>    <ESC>:echoe "Use k"<CR>
@@ -202,15 +200,11 @@ inoremap <Down>  <ESC>:echoe "Use j"<CR>
 nnoremap > >> 
 nnoremap < << 
 
-" quicker window movement
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
 
 " v模式下的系统复制
 vnoremap <C-c> "+y
 
+" <leader> d 在屏幕行和逻辑行之间切换，适用于markdown等当行大文本
 " movement relative to display lines
 nnoremap <silent> <Leader>d :call ToggleMovementByDisplayLines()<CR>
 function SetMovementByDisplayLines()
@@ -235,7 +229,7 @@ function ToggleMovementByDisplayLines()
     endif
 endfunction
 
-" unbind keys
+" 取消的默认键位unbind keys
 map <C-a> <Nop>
 nmap Q <Nop> " 'Q' in normal mode enters Ex mode. You almost never want this.
 map <C-x> <Nop>
